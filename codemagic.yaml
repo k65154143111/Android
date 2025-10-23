@@ -7,9 +7,6 @@ workflows:
       java: 11
 
     scripts:
-      - name: Find Module Name
+      - name: List tasks for :app module
         script: |
-          # هذا الأمر سيطبع قائمة بكل الوحدات (المشاريع الفرعية)
-          gradle projects
-          
-    # تم حذف قسم artifacts مؤقتاً لأننا لن ننتج APK
+          gradle :app:tasks
