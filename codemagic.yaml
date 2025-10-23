@@ -4,7 +4,7 @@ workflows:
     name: Android Debug Build
     instance_type: linux_x2
     environment:
-      java_version: 11
+      java: 11
     scripts:
       - name: List res directory
         script: |
