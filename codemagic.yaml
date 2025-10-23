@@ -2,7 +2,7 @@
 workflows:
   android-build:
     name: Android Debug Build
-    instance_type: linux_x2
+    instance_type: linux
     environment:
       java: 11
     scripts:
