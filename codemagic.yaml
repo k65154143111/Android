@@ -7,13 +7,9 @@ workflows:
       java: 11
 
     scripts:
-      - name: List res directory
+      - name: Find Module Name
         script: |
-          ls -R app/src/main/res
+          # هذا الأمر سيطبع قائمة بكل الوحدات (المشاريع الفرعية)
+          gradle projects
           
-      - name: Build Debug APK (using system gradle)
-        script: |
-          gradle :app:assembleDebug
-
-    artifacts:
-      - app/build/outputs/apk/debug/app-debug.apk
+    # تم حذف قسم artifacts مؤقتاً لأننا لن ننتج APK
