@@ -7,6 +7,10 @@ workflows:
       java: 11
 
     scripts:
-      - name: List ALL tasks for :app module
+      - name: Build Debug APK
         script: |
-          gradle :app:tasks --all
+          # هذا هو الأمر الصحيح لتطبيق أندرويد سليم (باستخدام gradle النظام)
+          gradle :app:assembleDebug
+
+    artifacts:
+      - app/build/outputs/apk/debug/app-debug.apk
