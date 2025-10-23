@@ -7,6 +7,6 @@ workflows:
       java: 11
 
     scripts:
-      - name: List tasks for :app module
+      - name: List ALL tasks for :app module
         script: |
-          gradle :app:tasks
+          gradle :app:tasks --all
