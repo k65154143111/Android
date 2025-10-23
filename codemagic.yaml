@@ -1,41 +1,21 @@
 ---
-name: Android CI
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch: null
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: List res directory contents
-        run: ls -R app/src/main/res
-      - name: Set up JDK 11
-        uses: actions/setup-java@v4
-        with:
-          java-version: "11"
-          distribution: temurin
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: "7.5"
-          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+workflows:
+  android-build:
+    name: Android Debug Build
+    instance_type: linux_x2
+    environment:
+      java_version: 11
+    scripts:
+      - name: List res directory
+        script: |
+          ls -R app/src/main/res
+      - name: Grant execute permission to gradlew
+        script: |
+          # هذه الخطوة مهمة للتأكد من أننا نستطيع تشغيل أداة البناء
+          chmod +x ./gradlew
       - name: Build Debug APK
-        run: gradle :app:assembleDebug
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
-      - name: Create Release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: app/build/outputs/apk/debug/app-debug.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          # هذا هو أمر البناء (مثل خطوة Build Debug APK)
+          ./gradlew :app:assembleDebug
+    artifacts:
+      - app/build/outputs/apk/debug/app-debug.apk
